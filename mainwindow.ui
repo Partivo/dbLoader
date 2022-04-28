@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>HackinGuide - Lithe</string>
+   <string>Partivo Company</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -28,7 +28,7 @@
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>Duyuru</string>
+      <string>Announcement</string>
      </attribute>
      <widget class="QPushButton" name="pushButton_12">
       <property name="geometry">
@@ -44,13 +44,13 @@
 border-radius: 5px;</string>
       </property>
       <property name="text">
-       <string>lithé</string>
+       <string>Partivo</string>
       </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
-      <string>Hileler</string>
+      <string>Cheats</string>
      </attribute>
      <widget class="QPushButton" name="pushButton_10">
       <property name="geometry">
@@ -66,13 +66,13 @@ border-radius: 5px;</string>
 border-radius: 5px;</string>
       </property>
       <property name="text">
-       <string>lithé</string>
+       <string>Partivo</string>
       </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>Bilgilerim</string>
+      <string>My Information</string>
      </attribute>
      <widget class="QPushButton" name="pushButton_4">
       <property name="geometry">
@@ -140,7 +140,7 @@ border-radius: 5px;</string>
 border-radius: 5px;</string>
       </property>
       <property name="text">
-       <string>Kopyala</string>
+       <string>Copy</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_2">
@@ -153,7 +153,7 @@ border-radius: 5px;</string>
        </rect>
       </property>
       <property name="text">
-       <string>Üyelik Durumu</string>
+       <string>Membership Status</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_3">
@@ -200,7 +200,7 @@ border-radius: 5px;</string>
 border-radius: 5px;</string>
       </property>
       <property name="text">
-       <string>lithé</string>
+       <string>Partivo</string>
       </property>
      </widget>
     </widget>
@@ -219,7 +219,7 @@ border-radius: 5px;</string>
 border-radius: 5px;</string>
     </property>
     <property name="text">
-     <string>lithé</string>
+     <string>Partivo</string>
     </property>
    </widget>
   </widget>
