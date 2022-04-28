@@ -14,8 +14,8 @@
 #include <QtNetwork/QNetworkRequest>
 
 QString hwid = "WWpOS2RtTXpRakZaTWpscVpGZGtNV0ZFVWpSa1ZFNXpaVmMwUFE9PQ==";
-// Bu bir "hwid" değildir. Sadece sunucu ile aradaki bağlantıyı sağlayacak bir şifre gibi düşünün.
-// Siz kendi hwid'nizi oluşturan fonksiyonunuzdan çıkan string ile sunucunuzdaki hwid'i eşleştiriceksiniz.
+// This is not a "hwid". Just think of it as a password that will provide the connection with the server.
+// You will match the hwid on your server with the string that comes out of your function that creates your own hwid.
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -23,32 +23,32 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // UI setup'ı bittikten sonra kodlarmızı yazmaya başlıyoruz.
+    // After the UI setup is finished, we start to write our codes.
 
-    // Veritabanı ile bağlantı kuruyoruz.
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL"); //Database'imizi tanımlayarak ekliyoruz..
-    db.setHostName("localhost"); // Veritabanımızın barındığı adresi yazıyoruz.
-    db.setUserName("root"); // Veritabanı girişindeki (PhpMyAdmin) kullanıcı adını yazıyoruz.
-    db.setPassword(""); // Veritabanı girişindeki şifremizi yazıyoruz. Localhosttayım şifre koymadım.
-    db.setDatabaseName("dbloader"); // Database'in altındaki yapının adını yazıyoruz. (Table değil, yapı adı.)
+    // We are establishing a connection with the database.
+    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL"); // We are adding our database by defining it..
+    db.setHostName("localhost"); // We are writing the address where our database is hosted.
+    db.setUserName("root"); // We write the username in the database entry.
+    db.setPassword(""); // We write our password in the database entry. I'm on localhost, I didn't set a password.
+    db.setDatabaseName("dbloader"); // We write the name of the structure under the database. (It's the structure name, not the table.)
 
-    // Versiyon kontrolü, güncelleme kontrolü, açık/kapalı durumu kontrolünü bu şekilde yapabilirsiniz. Konumuz bu değil bunu geçiyorum.
-    // Şimdi loader'ımıza giriş yapmamız gerekiyor. Bunu sağlayalım.
+    // This is how you can check for version check, update check, on/off status. This is not our topic, I'm going over it.
+    // Now we need to login to our loader. Let's get this done.
 
-    // Loader'a giriş :)
+    // Introduction to Loader :)
 
-    ui->hwidText->setText(hwid); // Burada çektiğimiz hwid'i formdaki textbox'ımıza geçiriyoruz.
+    ui->hwidText->setText(hwid); // Here we pass the hwid we have drawn to our textbox in the form.
 
-    if(db.open()) // Eğer veritabanıyla bağlantımız var ise,
+    if(db.open()) // If we have a connection to the database,
     {
-        QString lHwid = ui->hwidText->text(); // Kontrol ettireceğimiz hwid'i tanımladık.
-        QString lUyelikDurumu; // Üyelik durumumuzu veritabanından buraya tanımlayacağız.
-        QString lTest; // Örnek amaçlı olarak veritabanından test yazısını da buraya tanımlayacağız.
+        QString lHwid = ui->hwidText->text(); // We have defined the hwid to be checked.
+        QString lUyelikDurumu; // We will define our membership status from the database here.
+        QString lTest; // As an example, we will define the test article from the database here.
 
-        QString ExecuteSQL = "SELECT lUyelikDurumu, lTest FROM data WHERE hwid = '" + lHwid + "'"; // SQL işlemini gerçekleştiriyoruz.
-        //Bu satırda kısaca "lUyelikDurumu" ve "lTest"i, xorui tablosunun içindeki "hwid" ile bu bilgisayardaki hwidi eşleşen kısmın içinden seçip SQL gerçekleştirme tanımlamasına geçir yazıyor.
+        QString ExecuteSQL = "SELECT lUyelikDurumu, lTest FROM data WHERE hwid = '" + lHwid + "'"; // We perform the SQL operation.
+        // In this line, it briefly says "lMembershipStatus" and "lTest", select the part that matches the "hwid" in the xorui table and the hwid on this computer and pass it to the SQL realization definition.
 
-        QSqlQuery qry; // Sql sorgumuzu oluşturuyoruz.
+        QSqlQuery qry; // We are creating our SQL query.
 
         qry.prepare(ExecuteSQL);
         if( !qry.exec() )
@@ -65,24 +65,24 @@ MainWindow::MainWindow(QWidget *parent)
           while( qry.next() )
               {
                 temp = "";
-                  lUyelikDurumu = qry.value(0).toString(); // Veritabanındaki lUyelikDurumu'nu başarıyla çektikten sonra buradaki az önce tanımladığımız "lUyelikDurumu" stringine geçiriyoruz.
-                  lTest = qry.value(1).toString(); // Aynı şekilde burdaki de "lTest" için geçerli.
+                  lUyelikDurumu = qry.value(0).toString(); // After successfully pulling the MemberStatus from the database, we pass it to the "MembershipStatus" string that we just defined here.
+                  lTest = qry.value(1).toString(); // The same goes for "lTest" here.
               }
           }
 
-        // Sonuç olarak verileri çekmiş oluyoruz. Burayı geçiyorum döngüleri kullanarak verileri çekiyoruz. Anlatılacak pek bir şey yok.
+        // As a result, we get the data. I'm passing here we pull the data using loops. There isn't much to tell.
 
-        ui->pushButton_4->setText(lUyelikDurumu); // Ve burada da Üyelik durumumuzu formumuza geçiriyoruz.
-        ui->pushButton_6->setText(lTest); // Aynı şekilde Test yazımızı da geçiriyoruz.
+        ui->pushButton_4->setText(lUyelikDurumu); // And here we pass our Membership status to our form.
+        ui->pushButton_6->setText(lTest); // In the same way we pass our Test script.
     }
 }
 
-// Hwid kopyalama butonunun görevi burası.
-void MainWindow::on_pushButton_5_clicked() // Burayı pushButton5'e sağ tıklayıp Go to slot diyip clicked eventiyle oluşturuyoruz elle böyle bir void açmaya kalkmayın.
+// This is the task of the Hwid copy button.
+void MainWindow::on_pushButton_5_clicked() // Right click on pushButton5 and say Go to slot and create it with the clicked event. Do not try to open such a void manually.
 {
-    QClipboard *clip = QApplication::clipboard(); // Kopyalama Panomuzu tanımlıyoruz.
-    QString input = ui->hwidText->text(); // Input = Hwid olarak tanımlıyoruz.
-    clip->setText(input); // Panomuza giriş olarak Input'ı geçiriyoruz.
+    QClipboard *clip = QApplication::clipboard(); // We define our Copy Clipboard.
+    QString input = ui->hwidText->text(); // Define as Input = Hwid.
+    clip->setText(input); // We pass Input as input to our clipboard.
 }
 
 MainWindow::~MainWindow()
